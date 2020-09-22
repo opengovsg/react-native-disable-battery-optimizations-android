@@ -5,6 +5,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
 
+import android.widget.Toast;
 import android.content.Intent;
 import android.provider.Settings;
 import android.os.PowerManager;
@@ -29,8 +30,18 @@ public class RNDisableBatteryOptimizationsModule extends ReactContextBaseJavaMod
 			intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
 			intent.setData(Uri.parse("package:" + packageName));
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			reactContext.startActivity(intent);
-    
+
+			try {
+				reactContext.startActivity(intent);
+			} catch (ActivityNotFoundException e) {
+				try {
+					reactContext.startActivity(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS));
+					Toast.makeText(this, R.string.msg_request_doze_failed_manual, Toast.LENGTH_LONG).show();
+				} catch (ActivityNotFoundException e2) {
+					reactContext.startActivity(new Intent(Settings.ACTION_SETTINGS));
+					Toast.makeText(this, R.string.msg_request_doze_failed_all, Toast.LENGTH_LONG).show();
+				}
+			}
 	  }
 
   }
