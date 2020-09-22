@@ -37,10 +37,10 @@ public class RNDisableBatteryOptimizationsModule extends ReactContextBaseJavaMod
 			} catch (ActivityNotFoundException e) {
 				try {
 					reactContext.startActivity(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS));
-					Toast.makeText(this, R.string.msg_request_doze_failed_manual, Toast.LENGTH_LONG).show();
+					Toast.makeText(reactContext, "Unable to open request. Please set application as Not Optimized.", Toast.LENGTH_LONG).show();
 				} catch (ActivityNotFoundException e2) {
 					reactContext.startActivity(new Intent(Settings.ACTION_SETTINGS));
-					Toast.makeText(this, R.string.msg_request_doze_failed_all, Toast.LENGTH_LONG).show();
+					Toast.makeText(reactContext, "Unable to open battery optimization settings. Please set application as Not Optimized in battery optimization settings.", Toast.LENGTH_LONG).show();
 				}
 			}
 	  }

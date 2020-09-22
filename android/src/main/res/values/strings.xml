@@ -1,4 +1,0 @@
-<resources>
-  <string name="msg_request_doze_failed_manual">Could not request battery optimization. Please set app as Not Optimized manually.</string>
-  <string name="msg_request_doze_failed_all">Could not find battery optimization settings. Bringing you to system settings.</string>
-</resources>
